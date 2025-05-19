@@ -1,0 +1,49 @@
+.noticia-banner {
+  height: 200px;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .noticia-banner {
+    height: 250px;
+  }
+
+  .overlay {
+    align-items: center !important; /* Centrado horizontal */
+    text-align: center;
+  }
+
+  .overlay div {
+    width: 100%;
+  }
+}
+
+.object-fit-cover {
+  object-fit: cover;
+}
+
+.noticia-banner::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 60%;
+  width: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+  z-index: 1;
+}
+
+.overlay {
+  z-index: 2; /* aseguramos que el texto quede encima del degradado */
+}
+
+.card-text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  -webkit-line-clamp: 4; /* Chrome, Edge, Safari */
+  line-clamp: 4;         /* Futuro soporte en navegadores */
+}
+
