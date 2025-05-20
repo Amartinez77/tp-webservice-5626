@@ -1,1 +1,45 @@
-<p>card-maker works!</p>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow">
+        <!-- Imagen de cabecera -->
+        <img src="assets/images/imagen_auto.avif" class="card-img-top" alt="Banner de autos"
+          style="height: 200px; object-fit: cover;">
+
+        <div class="card-body text-center">
+          <h2 class="card-title mb-4">Especificaciones de Vehículos</h2>
+
+          <!-- Mensaje instructivo -->
+          <p class="lead mb-4">Selecciona una marca para ver sus modelos disponibles</p>
+
+          <!-- Selector de marca -->
+          <div class="form-group mb-4">
+            <select class="form-select form-select-lg" [(ngModel)]="selectedCar"
+              (ngModelChange)="getSelectedCarId($event)">
+              <option value="" disabled selected>Selecciona una marca</option>
+              <option *ngFor="let marca of carSpecsResponse" [value]="marca.id">
+                {{marca.name}}
+              </option>
+            </select>
+          </div>
+
+          <!-- Selector de modelo (se muestra solo si hay marca seleccionada) -->
+          <div class="form-group mb-4" *ngIf="selectedCar">
+            <select class="form-select form-select-lg" [(ngModel)]="selectedCarId">
+              <option value="" disabled selected>Selecciona un modelo</option>
+              <!-- Aquí se deben mostrar los modelos de la marca seleccionada -->
+              <option *ngFor="let modelo of carSpecsModelResponse" [value]="modelo.id">
+                {{modelo.name}}
+              </option>
+            </select>
+          </div>
+
+          <!-- Botón para ver especificaciones (se muestra solo si hay modelo seleccionado) -->
+          <!-- <button class="btn btn-primary btn-lg" *ngIf="modeloSeleccionado" (click)="verEspecificaciones()">
+            Ver Especificaciones
+          </button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
