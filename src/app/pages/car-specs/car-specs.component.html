@@ -25,7 +25,8 @@
 
           <!-- Selector de modelo (se muestra solo si hay marca seleccionada) -->
           <div class="form-group mb-4" *ngIf="selectedCar">
-            <select class="form-select form-select-lg" [(ngModel)]="selectedCarId">
+            <select class="form-select form-select-lg" [(ngModel)]="selectedCarId"
+              (ngModelChange)="getSelectedCarModelId($event)">
               <option value="" disabled selected>Selecciona un modelo</option>
               <!-- Aquí se deben mostrar los modelos de la marca seleccionada -->
               <option *ngFor="let modelo of carSpecsModelResponse" [value]="modelo.id">
@@ -34,12 +35,125 @@
             </select>
           </div>
 
-          <!-- Botón para ver especificaciones (se muestra solo si hay modelo seleccionado) -->
-          <!-- <button class="btn btn-primary btn-lg" *ngIf="modeloSeleccionado" (click)="verEspecificaciones()">
-            Ver Especificaciones
-          </button> -->
+          <!-- selector de serie del auto -->
+          <div class="form-group mb-4" *ngIf="selectedCarId">
+            <select class="form-select form-select-lg" [(ngModel)]="selectedCarTrim"
+              (ngModelChange)="getSelectedCarTrimId($event)">
+              <option value="" disabled selected>Selecciona una serie</option>
+              <!-- Aquí se deben mostrar las series del modelo seleccionado -->
+              <option *ngFor="let serie of carSpecsModelIdResponse" [value]="serie.id">
+                {{serie.name}}
+              </option>
+            </select>
+
+            <!-- selector de la generacion del auto /id trim -->
+            <select class="form-select form-select-lg" [(ngModel)]="selectedCarGenerationId"
+              (ngModelChange)="getSelectedCarTrim($event)">
+              <option value="" disabled selected>Selecciona una generación</option>
+              <!-- Aquí se deben mostrar las generaciones del modelo seleccionado -->
+              <option *ngFor="let generacion of carSpecsTrimIdResponse" [value]="generacion.id">
+                {{generacion.series}}
+              </option>
+            </select>
+
+            <!-- Botón para ver especificaciones (se muestra solo si hay modelo seleccionado) -->
+            <button class="btn btn-primary btn-lg" *ngIf="selectedCarId" data-bs-toggle="modal"
+              data-bs-target="#especificacionesModal" (click)="getCarSpecsById(selectedCarGenerationId)">
+              Ver Especificaciones
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+
+  <!-- Modal de Especificaciones -->
+  <div class="modal fade" id="especificacionesModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="modalLabel">Especificaciones del Vehículo</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <!-- Información General -->
+            <div class="col-md-6 mb-3">
+              <h6 class="text-primary mb-3">Información General</h6>
+              <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between">
+                  <span>Marca:</span>
+                  <strong>{{carSpecsbyidResponse?.make}}</strong>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                  <span>Modelo:</span>
+                  <strong>{{carSpecsbyidResponse?.model}}</strong>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                  <span>Generación:</span>
+                  <strong>{{carSpecsbyidResponse?.generation}}</strong>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                  <span>Serie:</span>
+                  <strong>{{carSpecsbyidResponse?.series}}</strong>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Dimensiones -->
+            <div class="col-md-6 mb-3">
+              <h6 class="text-primary mb-3">Dimensiones</h6>
+              <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between">
+                  <span>Largo:</span>
+                  <strong>{{carSpecsbyidResponse?.lengthMm}} mm</strong>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                  <span>Ancho:</span>
+                  <strong>{{carSpecsbyidResponse?.widthMm}} mm</strong>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                  <span>Alto:</span>
+                  <strong>{{carSpecsbyidResponse?.heightMm}} mm</strong>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                  <span>Peso:</span>
+                  <strong>{{carSpecsbyidResponse?.fullWeightKg}} kg</strong>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Especificaciones del Motor -->
+            <div class="col-12 mb-3">
+              <h6 class="text-primary mb-3">Especificaciones del Motor</h6>
+              <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between">
+                  <span>Tipo de Motor:</span>
+                  <strong>{{carSpecsbyidResponse?.engineType}}</strong>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                  <span>Disposición de Cilindros:</span>
+                  <strong>{{carSpecsbyidResponse?.cylinderLayout}}</strong>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                  <span>Número de Cilindros:</span>
+                  <strong>{{carSpecsbyidResponse?.numberOfCylinders}}</strong>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                  <span>Tipo de Inyección:</span>
+                  <strong>{{carSpecsbyidResponse?.injectionType}}</strong>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                  <span>Torque Máximo:</span>
+                  <strong>{{carSpecsbyidResponse?.maximumTorqueNM}} Nm</strong>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
