@@ -1,0 +1,14 @@
+.conversion-result {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.card {
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.card-header {
+  background: linear-gradient(45deg, #007bff, #0056b3);
+}

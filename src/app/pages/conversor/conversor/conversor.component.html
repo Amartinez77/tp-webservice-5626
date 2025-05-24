@@ -1,0 +1,24 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+          <h3 class="text-center mb-0">Conversor de Monedas</h3>
+        </div>
+        <div class="card-body">
+          <!-- Resultado de la conversión -->
+          <div class="text-center">
+            <h4 class="mb-3">Resultado de la conversión:</h4>
+            <div class="conversion-result p-3 bg-light rounded">
+              <p class="h3 mb-2">
+                {{monto}} {{monedaBase}} = 
+                <span class="text-primary">{{resultado | number:'1.2-2'}} {{monedaDestino}}</span>
+              </p>
+              <small class="text-muted">Tipo de cambio actualizado</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

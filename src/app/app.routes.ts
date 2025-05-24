@@ -1,7 +1,8 @@
 import { Routes } from '@angular/router';
 import { NoticiasComponent } from './pages/noticias/noticias.component';
 import { CarSpecsComponent } from './pages/car-specs/car-specs.component';
-import { ConversorComponent } from './conversor/conversor.component';
+import { ConversorComponent } from './pages/conversor/conversor/conversor.component';
+
 
 
 export const routes: Routes = [
