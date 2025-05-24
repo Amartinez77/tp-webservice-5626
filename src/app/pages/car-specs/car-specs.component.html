@@ -57,8 +57,8 @@
             </select>
 
             <!-- Botón para ver especificaciones (se muestra solo si hay modelo seleccionado) -->
-            <button class="btn btn-primary btn-lg" *ngIf="selectedCarId" data-bs-toggle="modal"
-              data-bs-target="#especificacionesModal" (click)="getCarSpecsById(selectedCarGenerationId)">
+            <button class="btn btn-primary btn-lg" *ngIf="selectedCarId"
+              (click)="getCarSpecsById(selectedCarGenerationId)">
               Ver Especificaciones
             </button>
           </div>
@@ -68,12 +68,14 @@
   </div>
 
   <!-- Modal de Especificaciones -->
-  <div class="modal fade" id="especificacionesModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal fade" id="especificacionesModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true"
+    (click)="closeModalFromBackdrop($event)">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header bg-primary text-white">
           <h5 class="modal-title" id="modalLabel">Especificaciones del Vehículo</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"
+            (click)="closeModal()"></button>
         </div>
         <div class="modal-body">
           <div class="row">
@@ -152,7 +154,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-secondary" (click)="closeModal()">Cerrar</button>
         </div>
       </div>
     </div>

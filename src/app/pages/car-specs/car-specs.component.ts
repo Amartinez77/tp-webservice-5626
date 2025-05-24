@@ -167,10 +167,8 @@ export class CarSpecsComponent implements OnInit {
         this.carSpecsbyidResponse = response || null;
         console.log('Especificaciones de autos en el metodo getCarSpecsById:', response);
         console.log('Especificaciones de autos:', response);
-
-        //abrir el modal manualmente despues de obtener la respuesta
-        const modal = new bootstrap.Modal(document.getElementById('especificacionesModal')!);
-        modal.show();
+        this.openModal(); // Abrir el modal después de obtener los datos
+        
 
       },
       error: (error) => { 
@@ -180,6 +178,41 @@ export class CarSpecsComponent implements OnInit {
     
   }
 
+  closeModal() {
+    // Obtener el modal usando Bootstrap
+    const modalElement = document.getElementById('especificacionesModal');
+    if (modalElement) {
+      const modal = bootstrap.Modal.getInstance(modalElement);
+      if (modal) {
+        modal.hide(); // Ocultar el modal usando la API de Bootstrap
+      }
+    }
+    
+    // Limpiar el backdrop y los estilos del body
+    const backdrop = document.querySelector('.modal-backdrop');
+    if (backdrop) {
+      backdrop.remove();
+    }
+    document.body.classList.remove('modal-open');
+    document.body.style.overflow = '';
+    document.body.style.paddingRight = '';
+  }
+
+  closeModalFromBackdrop(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    if (target && target.id === 'especificacionesModal') {
+      this.closeModal();
+    }
+  }
+
+  // Método para abrir el modal
+  openModal() {
+    const modalElement = document.getElementById('especificacionesModal');
+    if (modalElement) {
+      const modal = new bootstrap.Modal(modalElement);
+      modal.show();
+    }
+  }
 
 }
 
