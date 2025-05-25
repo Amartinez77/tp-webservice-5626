@@ -24,8 +24,14 @@
               <div class="d-grid gap-2 mb-4">
                 <button class="btn btn-lg" (click)="generarImagen()" [disabled]="cargando || !titulo"
                   style="background-color: #1877f2; color: white;">
-                  <i class="bi bi-stars me-2"></i>
-                  {{ cargando ? 'Generando imagen...' : 'Crear Imagen' }}
+                  <span *ngIf="!cargando">
+                    <i class="bi bi-stars me-2"></i>
+                    Crear Imagen
+                  </span>
+                  <span *ngIf="cargando">
+                    <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                    Generando imagen...
+                  </span>
                 </button>
               </div>
 
@@ -45,15 +51,33 @@
             <!-- Columna derecha para la imagen -->
             <div class="col-md-6">
               <div class="position-relative">
-                <!-- Placeholder cuando no hay imagen -->
-                <div *ngIf="!imagenBase64" class="text-center p-4 bg-light rounded" style="min-height: 300px;">
+                <!-- Estado de carga -->
+                <div *ngIf="cargando" class="text-center p-4 bg-light rounded" style="min-height: 300px;">
+                  <div class="d-flex flex-column align-items-center justify-content-center h-100">
+                    <div class="spinner-grow text-primary mb-3" role="status" style="width: 3rem; height: 3rem;">
+                      <span class="visually-hidden">Cargando...</span>
+                    </div>
+                    <div class="loading-text mt-3">
+                      <h6 class="mb-2">Generando tu imagen</h6>
+                      <div class="progress" style="height: 5px; width: 200px;">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                          style="width: 100%"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Placeholder cuando no hay imagen y no está cargando -->
+                <div *ngIf="!imagenBase64 && !cargando" class="text-center p-4 bg-light rounded"
+                  style="min-height: 300px;">
                   <i class="bi bi-image text-muted" style="font-size: 4rem;"></i>
                   <p class="text-muted mt-3">La imagen generada aparecerá aquí</p>
                 </div>
 
                 <!-- Imagen generada -->
-                <div *ngIf="imagenBase64" class="position-relative">
-                  <img [src]="imagenBase64" alt="Imagen generada" class="img-fluid rounded shadow-sm" />
+                <div *ngIf="imagenBase64" class="position-relative image-container">
+                  <img [src]="imagenBase64" alt="Imagen generada" class="img-fluid rounded shadow-sm"
+                    [class.fade-in]="imagenBase64" />
 
                   <!-- Marca de agua -->
                   <div class="position-absolute bottom-0 start-0 w-100 p-2 text-white text-center"
