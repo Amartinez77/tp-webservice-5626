@@ -6,17 +6,61 @@
           <h3 class="text-center mb-0">Conversor de Monedas</h3>
         </div>
         <div class="card-body">
-          <!-- Resultado de la conversión -->
-          <div class="text-center">
-            <h4 class="mb-3">Resultado de la conversión:</h4>
-            <div class="conversion-result p-3 bg-light rounded">
-              <p class="h3 mb-2">
-                {{monto}} {{monedaBase}} = 
-                <span class="text-primary">{{resultado | number:'1.2-2'}} {{monedaDestino}}</span>
-              </p>
-              <small class="text-muted">Tipo de cambio actualizado</small>
+          <form (ngSubmit)="getConversor()" #conversorForm="ngForm">
+            <!-- Moneda Base -->
+            <div class="mb-4">
+              <label for="monedaBase" class="form-label">Paso 1: Selecciona la moneda de origen</label>
+              <select id="monedaBase" class="form-select form-select-lg" [(ngModel)]="monedaBase" name="monedaBase"
+                required>
+                <option value="" disabled>Selecciona una moneda</option>
+                <option *ngFor="let moneda of listadoMonedas" [value]="moneda.codigo">
+                  {{moneda.codigo}} - {{moneda.nombre}}
+                </option>
+              </select>
             </div>
-          </div>
+
+            <!-- Moneda Destino -->
+            <div class="mb-4">
+              <label for="monedaDestino" class="form-label">Paso 2: Selecciona la moneda de destino</label>
+              <select id="monedaDestino" class="form-select form-select-lg" [(ngModel)]="monedaDestino"
+                name="monedaDestino" required>
+                <option value="" disabled>Selecciona una moneda</option>
+                <option *ngFor="let moneda of listadoMonedas" [value]="moneda.codigo">
+                  {{moneda.codigo}} - {{moneda.nombre}}
+                </option>
+              </select>
+            </div>
+
+            <!-- Input para el monto -->
+            <div class="mb-4">
+              <label for="monto" class="form-label">Paso 3: Ingresa el monto a convertir</label>
+              <div class="input-group input-group-lg">
+                <span class="input-group-text">{{monedaBase}}</span>
+                <input type="number" id="monto" class="form-control form-control-lg" [(ngModel)]="monto" name="monto"
+                  min="0" required>
+              </div>
+            </div>
+
+            <!-- Botón de conversión -->
+            <div class="d-grid gap-2 mb-4">
+              <button type="submit" class="btn btn-primary btn-lg" [disabled]="!conversorForm.form.valid">
+                Convertir
+              </button>
+            </div>
+
+            <!-- Resultado de la conversión -->
+            <div class="text-center" *ngIf="resultado !== null">
+              <hr>
+              <h4 class="mb-3">Resultado:</h4>
+              <div class="conversion-result p-4 bg-light rounded">
+                <p class="h3 mb-2">
+                  {{monto}} {{monedaBase}} =
+                  <span class="text-primary">{{resultado | number:'1.2-2'}} {{monedaDestino}}</span>
+                </p>
+                <small class="text-muted">Tipo de cambio actualizado</small>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
