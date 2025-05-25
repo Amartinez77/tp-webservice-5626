@@ -1,0 +1,74 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <!-- Card principal estilo Facebook -->
+      <div class="card shadow-sm" style="background-color: #ffffff; border-radius: 8px;">
+        <div class="card-header" style="background-color: #1877f2; color: white;">
+          <h4 class="mb-0">
+            <i class="bi bi-image-fill me-2"></i>
+            Generador de Imágenes para Facebook
+          </h4>
+        </div>
+
+        <div class="card-body p-4">
+          <div class="row">
+            <!-- Columna izquierda para input y descripción -->
+            <div class="col-md-6">
+              <div class="form-group mb-4">
+                <label for="titulo" class="form-label fw-bold" style="color: #1c1e21;">¿Qué imagen quieres
+                  crear?</label>
+                <input type="text" id="titulo" class="form-control form-control-lg shadow-sm" [(ngModel)]="titulo"
+                  placeholder="Describe la imagen que deseas generar..." [disabled]="cargando" />
+              </div>
+
+              <div class="d-grid gap-2 mb-4">
+                <button class="btn btn-lg" (click)="generarImagen()" [disabled]="cargando || !titulo"
+                  style="background-color: #1877f2; color: white;">
+                  <i class="bi bi-stars me-2"></i>
+                  {{ cargando ? 'Generando imagen...' : 'Crear Imagen' }}
+                </button>
+              </div>
+
+              <!-- Mensaje de error -->
+              <div *ngIf="error" class="alert alert-danger">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                {{ error }}
+              </div>
+
+              <!-- Descripción generada -->
+              <div *ngIf="textoRespuesta" class="mt-4">
+                <h6 class="fw-bold" style="color: #1c1e21;">Descripción de la imagen:</h6>
+                <p class="text-muted">{{ textoRespuesta }}</p>
+              </div>
+            </div>
+
+            <!-- Columna derecha para la imagen -->
+            <div class="col-md-6">
+              <div class="position-relative">
+                <!-- Placeholder cuando no hay imagen -->
+                <div *ngIf="!imagenBase64" class="text-center p-4 bg-light rounded" style="min-height: 300px;">
+                  <i class="bi bi-image text-muted" style="font-size: 4rem;"></i>
+                  <p class="text-muted mt-3">La imagen generada aparecerá aquí</p>
+                </div>
+
+                <!-- Imagen generada -->
+                <div *ngIf="imagenBase64" class="position-relative">
+                  <img [src]="imagenBase64" alt="Imagen generada" class="img-fluid rounded shadow-sm" />
+
+                  <!-- Marca de agua -->
+                  <div class="position-absolute bottom-0 start-0 w-100 p-2 text-white text-center"
+                    style="background: rgba(0,0,0,0.7); border-bottom-left-radius: 4px; border-bottom-right-radius: 4px;">
+                    <small>
+                      <i class="bi bi-google me-1"></i>
+                      Generado con Google Gemini 2.0 Flash
+                    </small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
