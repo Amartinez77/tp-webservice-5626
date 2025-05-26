@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
+import { environment } from '../../../environments/environments';
+
 
 // interface para recibir la respuesta de la API
 export interface ApiRespuesta { 
@@ -40,8 +42,8 @@ export class NoticiasService {
     // Llamar a la API y devolver el resultado
     const httpOptions = {
       headers: {
-        'x-rapidapi-key': '0d67c15fc8mshf05bd9e4f6655bfp1a0bd6jsn30b062fd0d5c',
-        'x-rapidapi-host': 'google-news22.p.rapidapi.com'
+        'x-rapidapi-key': environment.GoogleNoticiasApiKey,
+        'x-rapidapi-host': environment.GoogleNoticiasApiHost,
       }
     };
 

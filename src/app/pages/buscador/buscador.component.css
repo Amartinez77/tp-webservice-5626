@@ -1,0 +1,20 @@
+/*.card {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+*/
+body {
+  background-color: #121212;
+}
+
+.card {
+  border: none;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.01);
+}
+
+input.form-control::placeholder {
+  color: #999;
+}

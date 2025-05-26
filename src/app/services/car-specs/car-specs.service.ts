@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { environment } from '../../../environments/environments';
 
 
 
@@ -71,8 +72,7 @@ export interface CarSpecsbyidResponse {
 })
 export class CarSpecsService {
 
-  // variable para la key de la api
-  private keyApi = 'ab59360f99msh8f50eff1a46dd09p1b3b38jsndd6592c55dcd';
+  
 
   // creo una variable para guardar la respuesta de la api en "cache"
   private marcasEnCache: CarSpecsResponse[] | null = null;
@@ -100,7 +100,7 @@ export class CarSpecsService {
     //headers de la api
     const httpOptions = {
       headers: {
-        'x-rapidapi-key': this.keyApi,
+        'x-rapidapi-key': environment.carSpecsApiKey,
         'x-rapidapi-host': 'car-specs.p.rapidapi.com'
       }
     };
@@ -132,7 +132,7 @@ export class CarSpecsService {
     const apiUrl = `https://car-specs.p.rapidapi.com/v2/cars/makes/${id}/models`;
     const httpOptions = {
       headers: {
-        'x-rapidapi-key':this.keyApi,
+        'x-rapidapi-key':environment.carSpecsApiKey,
         'x-rapidapi-host': 'car-specs.p.rapidapi.com'
       }
     };
@@ -159,7 +159,7 @@ export class CarSpecsService {
     const apiUrl = `https://car-specs.p.rapidapi.com/v2/cars/models/${id}/generations`;
     const httpOptions = {
       headers: {
-        'x-rapidapi-key': this.keyApi,
+        'x-rapidapi-key': environment.carSpecsApiKey,
         'x-rapidapi-host': 'car-specs.p.rapidapi.com'
       }
     };
@@ -184,7 +184,7 @@ export class CarSpecsService {
     const apiUrl = `https://car-specs.p.rapidapi.com/v2/cars/generations/${id}/trims`;
     const httpOptions = {
       headers: {
-        'x-rapidapi-key': this.keyApi,
+        'x-rapidapi-key': environment.carSpecsApiKey,
         'x-rapidapi-host': 'car-specs.p.rapidapi.com'
       }
     };
@@ -213,7 +213,7 @@ export class CarSpecsService {
     const apiUrl = `https://car-specs.p.rapidapi.com/v2/cars/trims/${id}`;
     const httpOptions = {
       headers: {
-        'x-rapidapi-key': this.keyApi,
+        'x-rapidapi-key': environment.carSpecsApiKey,
         'x-rapidapi-host': 'car-specs.p.rapidapi.com'
       }
     };

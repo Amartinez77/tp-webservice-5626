@@ -1,1 +1,44 @@
-<p>buscador works!</p>
+<div class="container py-5" style="max-width: 700px">
+  <div class="text-center mb-4">
+    <img src="assets/images/logo-deezer.jpg" alt="Deezer" />
+    <h2 class="mt-2" style="color: #ef5466">Buscador de Canciones</h2>
+    <p class="text-white-50">Datos provistos por Deezer API</p>
+  </div>
+
+  <!-- Caja buscador -->
+  <div class="card p-4 bg-dark text-white mb-4 shadow-lg rounded-4">
+    <h5 class="mb-3">🔍 Ingresá un artista o canción</h5>
+    <div class="input-group">
+      <input class="form-control bg-black text-white border-secondary" [(ngModel)]="query"
+        placeholder="Ej: Coldplay Paradise" (keyup.enter)="buscar()" />
+      <button class="btn btn-danger" (click)="buscar()" [disabled]="cargando">
+        Buscar
+      </button>
+    </div>
+  </div>
+
+  <!-- Spinner -->
+  <div *ngIf="cargando" class="text-center my-4">
+    <div class="spinner-border text-danger" role="status"></div>
+    <p class="mt-2 text-white">Buscando canción...</p>
+  </div>
+
+  <!-- Resultado -->
+  <div *ngIf="resultado" class="card text-white bg-black shadow-lg rounded-4 overflow-hidden">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img [src]="resultado.coverImage" alt="Cover" class="img-fluid h-100 object-fit-cover" />
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title text-danger">{{ resultado.title }}</h5>
+          <p class="card-text">
+            <strong>Artista:</strong> {{ resultado.artist }}<br />
+            <strong>Álbum:</strong> {{ resultado.album }}
+          </p>
+          <audio [src]="resultado.previewUrl" controls class="w-100 mt-2 bg-dark"></audio>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

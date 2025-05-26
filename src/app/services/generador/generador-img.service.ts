@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { GoogleGenAI, Modality } from '@google/genai'
 import { Observable, from } from 'rxjs';
+import { environment } from '../../../environments/environments';
 
 // interface para la respuesta de la API
 export interface ImageGenerationResult {
@@ -16,12 +17,11 @@ export interface ImageGenerationResult {
 export class GeneradorImgService {
 
   // variables para conectar con la API de genAI
-  private readonly API_KEY = 'AIzaSyBeWupgTrJZBswiHYnilZI3L05T3rqNngU';
   private ai: GoogleGenAI
 
   // constructor
   constructor() {
-    this.ai = new GoogleGenAI({ apiKey: this.API_KEY })
+    this.ai = new GoogleGenAI({ apiKey: environment.geminiApiKey });
   }
 
   /**
